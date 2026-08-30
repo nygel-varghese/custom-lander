@@ -10,7 +10,7 @@
 */
 
 const CONFIG = {
-  launchDate: "2027-01-01T00:00:00+05:30",
+  launchDate: "2026-09-04T12:00:00+05:30",
 
   quotes: [
   "Curiosity is a better starting point than certainty.",
