@@ -1,6 +1,6 @@
 :root {
   /* ===== EASY TO EDIT ===== */
-  --background-image: url("background.jpg");
+  --background-image: url("background.jpeg");
 
   --bg: #F5F3EE;
   --text: #171717;
@@ -251,6 +251,13 @@ footer {
 .quote {
   position: relative;
   padding-left: 22px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  /* Reserve room for the longest quote (~3 lines at this font size) so
+     switching quotes never changes this box's height and shifts the
+     countdown above it. Short quotes just sit centered in the space. */
+  min-height: calc(clamp(24px, 2.7vw, 38px) * 1.13 * 3);
 }
 
 .quote-bar {
@@ -396,6 +403,10 @@ footer {
     font-size: clamp(21px, 6.8vw, 29px);
   }
 
+  .quote {
+    min-height: calc(clamp(21px, 6.8vw, 29px) * 1.13 * 3);
+  }
+
   #another-thought {
     margin-top: 0;
     margin-bottom: 14px;
@@ -423,6 +434,10 @@ footer {
 
   .thought blockquote {
     font-size: 28px;
+  }
+
+  .quote {
+    min-height: calc(28px * 1.13 * 2);
   }
 
   footer {
