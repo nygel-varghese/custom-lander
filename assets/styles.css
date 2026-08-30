@@ -36,10 +36,6 @@ body {
   -webkit-font-smoothing: antialiased;
 }
 
-body {
-  overflow: hidden;
-}
-
 /* The photograph sits behind everything. */
 .background,
 .overlay {
@@ -87,7 +83,8 @@ body {
   padding: 30px 0 22px;
   display: flex;
   flex-direction: column;
-  overflow: hidden;
+  overflow-y: auto;
+  overflow-x: hidden;
 }
 
 .masthead {
