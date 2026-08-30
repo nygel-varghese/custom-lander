@@ -1,0 +1,434 @@
+:root {
+  /* ===== EASY TO EDIT ===== */
+  --background-image: url("background.jpg");
+
+  --bg: #F5F3EE;
+  --text: #171717;
+  --muted: #66635D;
+  --border: rgba(23, 23, 23, 0.24);
+  --accent: #C8102E;
+
+  /* Background treatment:
+     Increase overlay opacity for a lighter / calmer image.
+     Decrease it to reveal more of the photograph.
+  */
+  --overlay-opacity: 0.60;
+  --overlay-warmth: 0.12;
+
+  --max-width: 1240px;
+  --sans: Inter, ui-sans-serif, -apple-system, BlinkMacSystemFont,
+          "Segoe UI", Helvetica, Arial, sans-serif;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  width: 100%;
+  height: 100%;
+  min-width: 320px;
+  margin: 0;
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--sans);
+  -webkit-font-smoothing: antialiased;
+}
+
+body {
+  overflow: hidden;
+}
+
+/* The photograph sits behind everything. */
+.background,
+.overlay {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+}
+
+.background {
+  z-index: 0;
+  background:
+    var(--background-image) center center / cover no-repeat,
+    var(--bg);
+}
+
+/* Main visibility layer.
+   This is deliberately warm rather than pure white so the image
+   remains present while black/red type stays readable. */
+.overlay {
+  z-index: 1;
+  background:
+    linear-gradient(
+      rgba(245, 243, 238, var(--overlay-opacity)),
+      rgba(245, 243, 238, var(--overlay-opacity))
+    );
+}
+
+/* A very subtle warm veil over the image. */
+.overlay::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: rgba(245, 243, 238, var(--overlay-warmth));
+  mix-blend-mode: screen;
+}
+
+.page {
+  position: relative;
+  z-index: 2;
+  width: min(calc(100% - 64px), var(--max-width));
+  height: 100vh;
+  height: 100svh;
+  min-height: 520px;
+  margin: 0 auto;
+  padding: 30px 0 22px;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+.masthead {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  padding-bottom: 22px;
+  border-bottom: 1px solid var(--border);
+}
+
+.identity {
+  display: flex;
+  align-items: center;
+  gap: 13px;
+}
+
+.profile {
+  width: 48px;
+  height: 48px;
+  flex: 0 0 48px;
+  object-fit: cover;
+  object-position: center;
+  border-radius: 50%;
+  border: 1px solid rgba(23, 23, 23, 0.32);
+  background: rgba(245, 243, 238, 0.4);
+}
+
+.eyebrow,
+.status,
+.label,
+footer {
+  font-size: 10px;
+  line-height: 1.3;
+  letter-spacing: .14em;
+  text-transform: uppercase;
+}
+
+.eyebrow {
+  margin: 0;
+  color: var(--text);
+}
+
+.dot {
+  color: var(--accent);
+  font-weight: 700;
+}
+
+.heart {
+  color: var(--accent);
+  font-weight: 700;
+}
+
+.credits-link {
+  color: var(--accent);
+  text-transform: none;
+}
+
+.brand {
+  text-align: right;
+}
+
+.brand h1 {
+  margin: 0;
+  font-size: 16px;
+  line-height: 1;
+  letter-spacing: .12em;
+  font-weight: 700;
+}
+
+.brand-underline {
+  display: block;
+  width: 32px;
+  height: 2px;
+  margin: 8px 0 0 auto;
+  background: var(--accent);
+}
+
+.status {
+  margin: 17px 0 0;
+  color: var(--text);
+  letter-spacing: .16em;
+}
+
+.main {
+  flex: 1;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+}
+
+.launch-label {
+  margin-bottom: 21px;
+}
+
+.countdown {
+  display: grid;
+  grid-template-columns: repeat(4, auto);
+  align-items: start;
+  justify-content: center;
+  column-gap: clamp(4px, 1vw, 12px); /* can shrink freely; no longer load-bearing for separator spacing */
+}
+
+.time-unit {
+  display: grid;
+  grid-template-rows: auto auto;
+  justify-items: center;
+  row-gap: 11px;
+}
+
+.number-row {
+  display: flex;
+  align-items: center;
+  gap: clamp(2px, 0.3vw, 6px);
+}
+
+.time-unit:not(:last-child) .digit-block {
+  padding-right: clamp(20px, 3vw, 46px); /* reserved, in-flow space for the separator */
+}
+
+.digit-block {
+  position: relative;
+  display: inline-block; /* sized only to the number, nothing else touches this box */
+}
+
+.number {
+  display: block;
+  font-size: clamp(58px, 9vw, 126px);
+  line-height: .76;
+  letter-spacing: -.065em;
+  font-weight: 430;
+  font-variant-numeric: tabular-nums;
+}
+
+.label {
+  color: var(--text);
+  font-size: 9px;
+  letter-spacing: .18em;
+}
+
+.separator {
+  position: absolute;
+  right: 0;
+  top: 50%;
+  transform: translateY(-60%);
+  color: var(--accent);
+  font-size: clamp(34px, 5vw, 70px);
+  font-weight: 300;
+}
+
+.thought {
+  position: relative;
+  width: min(760px, 100%);
+  margin-top: clamp(42px, 5.5vh, 64px);
+  padding-left: 22px;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.quote {
+  position: relative;
+  padding-left: 22px;
+}
+
+.quote-bar {
+  position: absolute;
+  inset: 0 auto 0 0;
+  width: 3px;
+  background: var(--accent);
+}
+
+#quote::before,
+#quote::after {
+  color: var(--accent);
+  font-weight: 600;
+}
+
+#quote::before {
+  content: '"';
+  margin-right: 2px;
+}
+
+#quote::after {
+  content: '"';
+  margin-left: 2px;
+}
+
+.thought blockquote {
+  margin: 0;
+  font-size: clamp(24px, 2.7vw, 38px);
+  line-height: 1.13;
+  letter-spacing: -.025em;
+  font-weight: 430;
+  transition: opacity .18s ease;
+}
+
+#another-thought {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  appearance: none;
+  border: 1px solid var(--accent);
+  border-radius: 2px;
+  padding: 9px 15px;
+  margin-top: 0;
+  margin-bottom: 22px;
+  background: rgba(245, 243, 238, 0.18);
+  color: var(--text);
+  font: inherit;
+  font-size: 11px;
+  letter-spacing: .1em;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: background .2s ease, color .2s ease, transform .2s ease;
+}
+
+#another-thought:hover {
+  background: var(--accent);
+  color: #fff;
+  transform: translateY(-1px);
+}
+
+.button-icon {
+  color: var(--accent);
+  font-size: 17px;
+  line-height: 1;
+}
+
+#another-thought:hover .button-icon {
+  color: #fff;
+}
+
+/* Visual order only, to retain semantic/DOM order for accessibility & screen readers */
+.thought .launch-label { order: 1; }
+#another-thought       { order: 2; }
+.quote                 { order: 3; align-self: stretch; }
+
+footer {
+  padding-top: 17px;
+  border-top: 1px solid var(--border);
+  color: var(--text);
+  text-align: center;
+}
+
+@media (max-width: 700px) {
+  .page {
+    width: min(calc(100% - 36px), var(--max-width));
+    min-height: 500px;
+    padding-top: 20px;
+    padding-bottom: 18px;
+  }
+
+  .masthead {
+    padding-bottom: 18px;
+  }
+
+  .profile {
+    width: 42px;
+    height: 42px;
+    flex-basis: 42px;
+  }
+
+  .identity .eyebrow {
+    display: none;
+  }
+
+  .brand h1 {
+    font-size: 14px;
+  }
+
+  .status {
+    margin-top: 13px;
+    font-size: 9px;
+  }
+
+  .launch-label {
+    margin-bottom: 17px;
+  }
+
+  .countdown {
+    width: 100%;
+    column-gap: 5px;
+  }
+
+  .number {
+    font-size: clamp(39px, 13vw, 64px);
+  }
+
+  .label {
+    font-size: 7px;
+    letter-spacing: .11em;
+  }
+
+  .separator {
+    font-size: 26px;
+  }
+
+  .thought {
+    width: 94%;
+    margin-top: 36px;
+    padding-left: 17px;
+  }
+
+  .thought blockquote {
+    font-size: clamp(21px, 6.8vw, 29px);
+  }
+
+  #another-thought {
+    margin-top: 0;
+    margin-bottom: 14px;
+    padding: 8px 12px;
+    font-size: 10px;
+  }
+
+  footer {
+    font-size: 8px;
+  }
+}
+
+@media (max-height: 650px) and (min-width: 701px) {
+  .masthead {
+    padding-bottom: 17px;
+  }
+
+  .launch-label {
+    margin-bottom: 12px;
+  }
+
+  .thought {
+    margin-top: 28px;
+  }
+
+  .thought blockquote {
+    font-size: 28px;
+  }
+
+  footer {
+    padding-top: 11px;
+  }
+}
